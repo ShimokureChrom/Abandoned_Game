@@ -1,8 +1,10 @@
 {
 	"folders": [
 		{
-			"path": ".git"
+			"path": "Abandoned_Game"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Abandoned_Game"
+	}
 }
