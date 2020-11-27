@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script language="javascript" type="text/javascript" src="js/vue.js"></script>
     <script language="javascript" type="text/javascript" src="js/localStorage.js"></script>
     <title>エアガイツ 魔術ギルド 1番受付</title>
 </head>
@@ -11,13 +12,25 @@
     <input type="button" value="更新" onclick="load_datas();">
     <input type="button" value="全削除" onclick="delete_datas();">
     <h2>依頼一覧</h2>
-    <div id="requests_out"></div>
+    <div id="requests_out">
+        <ol>
+            <li v-for="request in requests">
+                {{ request.text }}
+            </li>
+        </ol>
+    </div>
     <h4>登録する依頼を入力して下さい</h4>
     <input type="text" name="request_name" id="request_name" value="" placeholder="依頼名"><br>
     <input type="button" value="登録" onclick="save_request();">
     <br>
     <h2>登録魔術師一覧</h2>
-    <div id="conjureres_out"></div>
+    <div id="conjureres_out">
+        <ol>
+            <li v-for="conjurer in conjureres">
+                {{ conjurer.text }}
+            </li>
+        </ol>
+    </div>
     <h4>登録する魔術師を入力して下さい</h4>
     <input type="text" name="conjurer_name" id="conjurer_name" value="" placeholder="魔術師名"><br>
     <input type="button" value="登録" onclick="save_conjurer();">

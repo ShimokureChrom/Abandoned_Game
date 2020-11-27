@@ -8,18 +8,12 @@ function load(data_name) {
 function load_datas() {
   let requests = load('requests');
   let conjureres = load('conjureres');
-  let out_data = "";
-  for (let i = 0; i < requests.length; i++) {
-    out_data += requests[i];
-    out_data += "<br>";
-  }
-  document.getElementById("requests_out").innerHTML = out_data;
-  out_data = "";
-  for (let i = 0; i < conjureres.length; i++) {
-    out_data += conjureres[i];
-    out_data += "<br>";
-  }
-  document.getElementById("conjureres_out").innerHTML = out_data;
+  var requests_out = new Vue({ el: '#requests_out', data: { requests: [] } });
+  var conjureres_out = new Vue({ el: '#conjureres_out', data: { conjureres: [] } });
+  for (let i = 0; i < requests.length; i++)
+    requests_out.requests.push({ text: requests[i] });
+  for (let i = 0; i < conjureres.length; i++)
+    conjureres_out.conjureres.push({ text: conjureres[i] });
 }
 
 // 保存
