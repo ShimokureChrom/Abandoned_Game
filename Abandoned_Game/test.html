@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<title>new vue.js</title>
+<script src="https://unpkg.com/vue@2.5.17"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="app">
+        <p v-for="item in items" v-bind:key="item.name">
+            {{item.name}}: {{item.price}}円 x <input type="number" v-model="item.quantiny" min="0">個 = {{item.price * item.quantiny}}円
+        </p>
+        <p>合計金額（税抜）：{{totalPrice | numberWithDelimiter}}円</p>
+        <p>合計金額（税込）：{{totalPriceWithTax | numberWithDelimiter}}円</p>
+        <p v-show="!canBuy" v-bind:style="errorStyle">金額が足りません！</p>
+        <button id="b-button" v-bind:title="errorMessage" v-bind:disabled="!canBuy" v-on:click.prevent="doBuy">購入</button>
+    </div>
+    <script>
+        var items = [
+            {
+                name: 'A',
+                price: 100,
+                quantiny: 0
+            },
+            {
+                name: 'B',
+                price: 200,
+                quantiny: 0
+            },
+            {
+                name: 'C',
+                price: 300,
+                quantiny: 0
+            }
+        ]
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                items: items
+            },
+            filters: {
+                numberWithDelimiter: function(value){
+                    if(!value){
+                        return '0'
+                    }
+                    return value.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,')
+                }
+            },
+            computed: {
+                totalPrice: function(){
+                    return this.items.reduce(function(sum, item){
+                        return sum + (item.price * item.quantiny)
+                    }, 0)
+                },
+                totalPriceWithTax: function(){
+                    return Math.floor(this.totalPrice * 1.1)
+                },
+                canBuy: function(){
+                    return this.totalPriceWithTax >= 1000
+                },
+                errorMessage: function(){
+                    if(this.canBuy)
+                        return '購入可能'
+                    else
+                        return '税込1,000円以上で購入可能です'
+                },
+                errorStyle: function(){
+                    return{
+                        border: this.canBuy ? '' : '1px solid red',
+                        color: this.canBuy ? '' : 'red'
+                    } 
+                }
+            },
+            methods: {
+                doBuy: function(){
+                    alert(this.totalPriceWithTax + '円のお買い上げです')
+                    this.items.forEach(function (item){item.quantiny = 0})
+                }
+            }
+        })
+    </script>
+</body>
+</html>
