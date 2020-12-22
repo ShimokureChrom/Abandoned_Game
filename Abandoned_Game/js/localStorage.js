@@ -1,42 +1,54 @@
+//魔術師一覧
+var requests = []
+var newRequest = ""
+
+var requestVue = new Vue({
+  el: '#request',
+  data: {
+    requests: requests,
+    newRequest: newRequest
+  },
+  computed: {
+    canAdd: function () {
+      return this.newRequest != ""
+    }
+  },
+  methods: {
+    addRequest: function () {
+      let addData = { name: this.newRequest }
+      this.requests.push(addData)
+      this.newRequest = ""
+      saveLocal("requests", this.requests);
+    }
+  }
+})
+
 // 読込
-function load(data_name) {
+function loadLocal(data_name) {
   if (localStorage.getItem(data_name))
     return JSON.parse(localStorage.getItem(data_name));
   return [];
 }
 
-function load_datas() {
-  let requests = load('requests');
-  let conjureres = load('conjureres');
-  var requests_out = new Vue({ el: '#requests_out', data: { requests: [] } });
-  var conjureres_out = new Vue({ el: '#conjureres_out', data: { conjureres: [] } });
-  for (let i = 0; i < requests.length; i++)
-    requests_out.requests.push({ text: requests[i] });
-  for (let i = 0; i < conjureres.length; i++)
-    conjureres_out.conjureres.push({ text: conjureres[i] });
+function load_datas(data_name, toSet) {
+  let storage = loadLocal(data_name);
+  for (let i = 0; i < storage.length; i++)
+    toSet.push(storage[i])
 }
 
 // 保存
-function save_request() {
-  let requests = load('requests');
-  let add = document.getElementById("request_name").value;
-  if (add)
-    requests.push(add);
-  localStorage.setItem('requests', JSON.stringify(requests));
-  load_datas();
-}
-function save_conjurer() {
-  let conjureres = load('conjureres');
-  let add = document.getElementById("conjurer_name").value;
-  if (add)
-    conjureres.push(add);
-  localStorage.setItem('conjureres', JSON.stringify(conjureres));
-  load_datas();
+function saveLocal(data_name, data) {
+  localStorage.setItem(data_name, JSON.stringify(data))
 }
 
 //削除
-function delete_datas() {
-  localStorage.setItem('requests', "");
-  localStorage.setItem('conjureres', "");
-  load_datas();
+function deleteLocal(data_name) {
+  localStorage.setItem(data_name, "")
 }
+
+function delete_datas() {
+  requestVue._data.requests = []
+  deleteLocal("requests")
+}
+
+load_datas("requests", requests)
