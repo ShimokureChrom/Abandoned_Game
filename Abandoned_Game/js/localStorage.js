@@ -1,6 +1,6 @@
 //魔術師一覧
 var requests = []
-var newRequest = ""
+var newRequest = { name: "", cost: "", rank: "", time: "" }
 
 var requestVue = new Vue({
   el: '#request',
@@ -10,14 +10,22 @@ var requestVue = new Vue({
   },
   computed: {
     canAdd: function () {
-      return this.newRequest != ""
+      let can = true
+      can &= this.newRequest.name != ""
+      can &= this.newRequest.cost != ""
+      can &= this.newRequest.rank != ""
+      can &= this.newRequest.time != ""
+      return can
     }
   },
   methods: {
     addRequest: function () {
-      let addData = { name: this.newRequest }
+      let addData = { name: this.newRequest.name, cost: this.newRequest.cost, rank: this.newRequest.rank, time: this.newRequest.time }
       this.requests.push(addData)
-      this.newRequest = ""
+      this.newRequest.name = ""
+      this.newRequest.cost = ""
+      this.newRequest.rank = ""
+      this.newRequest.time = ""
       saveLocal("requests", this.requests);
     }
   }
