@@ -22,14 +22,14 @@
         </div>
         <h4>登録する依頼を入力して下さい</h4>
         <input type="text" v-model="newRequest.name" placeholder="依頼名"><br>
-        <input type="text" v-model="newRequest.rank" placeholder="難易度（ S ～ E ）" pattern="^[A-ES]+$"><br>
+        <input type="text" v-model="newRequest.rank" placeholder="難易度（ S ～ E ）"><br>
         <input type="number" v-model="newRequest.cost" placeholder="コスト[G]"><br>
         <input type="number" v-model="newRequest.time" placeholder="目安時間[時間]"><br>
         <input type="button" v-bind:disabled="!canAdd" v-on:click.prevent="addRequest" value="登録">
     </div>
     <script language="javascript" type="text/javascript" src="js/localStorage.js"></script>
     <div class="a">
-        <img src="Character_Image/yome_dot.png" width="128" height="128" style="image-rendering: pixelated; ">
+        <img src="Character_Image/yome_dot.png" width="64" height="64" style="image-rendering: pixelated; ">
     </div>
 </body>
 </html>
