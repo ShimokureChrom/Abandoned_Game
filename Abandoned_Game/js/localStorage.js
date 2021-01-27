@@ -27,6 +27,10 @@ var requestVue = new Vue({
       this.newRequest.rank = ""
       this.newRequest.time = ""
       saveLocal("requests", this.requests);
+    },
+    deleteRequest: function (num) {
+     this.requests.splice(num, 1)
+      saveLocal("requests", this.requests);
     }
   }
 })
