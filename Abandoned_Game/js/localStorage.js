@@ -29,7 +29,7 @@ var requestVue = new Vue({
       saveLocal("requests", this.requests);
     },
     deleteRequest: function (num) {
-     this.requests.splice(num, 1)
+      this.requests.splice(num, 1)
       saveLocal("requests", this.requests);
     }
   }
