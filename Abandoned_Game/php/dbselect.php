@@ -1,6 +1,6 @@
 <?php
 
-/*$mysqli = new mysqli('localhost', 'root', '246911', 'Abandoned_Game');
+$mysqli = new mysqli('localhost', 'root', '246911', 'Abandoned_Game');
 
 if($mysqli->connect_error)
 {
@@ -20,9 +20,9 @@ while($array=$stmt->fetch_array(MYSQLI_ASSOC))
     $result=$array['name'];
 }
 
-$mysqli->close;*/
+$mysqli->close();
 
-// print($result);
-phpinfo();
+print($result);
+// phpinfo();
 
 ?>
