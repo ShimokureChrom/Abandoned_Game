@@ -23,6 +23,6 @@ while($array=$stmt->fetch_array(MYSQLI_ASSOC))
 $mysqli->close;*/
 
 // print($result);
-print('aaa');
+phpinfo();
 
 ?>
