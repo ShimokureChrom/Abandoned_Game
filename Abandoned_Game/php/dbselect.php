@@ -18,11 +18,11 @@ $stmt = $mysqli->query($sql2);
 while($array=$stmt->fetch_array(MYSQLI_ASSOC))
 {
     $result=$array['name'];
+    print($result);
 }
 
 $mysqli->close();
 
-print($result);
 // phpinfo();
 
 ?>
