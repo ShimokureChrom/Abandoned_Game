@@ -9,7 +9,7 @@ if(empty($_SESSION['logined']))
 if(!$_SESSION['logined'])
 {
     header("Location: login.php") ;
-	exit ;  
+	exit ;
 }
 session_write_close();
 

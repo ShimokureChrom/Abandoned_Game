@@ -2,15 +2,27 @@
 include("header.php");
 session_start();
 $error_message = "";
+$result = "";
 if (isset($_POST['login']))
 {
   include("db_operate.php");
   $error_message = insert_user($_POST['user_name'], $_POST['password']);
   if($error_message === "success")
   {
+    $result = check_user($_POST['user_name'], $_POST['password']);
+    $error_message = $result['error'];
+  }
+  if($error_message === "success")
+  {
     $_SESSION['logined'] = true;
     $_SESSION['user_name'] = $_POST['user_name'];
-    $_SESSION['user_id'] = $result;
+    $_SESSION['user_id'] = $result['user_id'];
+    $_SESSION['money'] = $result['money'];
+    $error_message = insert_item($result['user_id'], 1, 0);
+  }
+  if($error_message === "success")
+  {
+    $_SESSION['item']['1'] = $result['count'];
     $error_message = "";
     header("Location: home.php") ;
     exit;

@@ -2,23 +2,32 @@
 include("header.php");
 session_start();
 $error_message = "";
+$result = "";
 if(!empty($_SESSION['logined']))
 {
   if($_SESSION['logined'])
   {
     header("Location: home.php");
-    exit;  
+    exit;
   }
 }
 if (isset($_POST['login']))
 {
   include("db_operate.php");
-  $error_message = check_user($_POST['user_name'], $_POST['password']);
+  $result = check_user($_POST['user_name'], $_POST['password']);
+  $error_message = $result["error"];
   if($error_message === "success")
   {
     $_SESSION['logined'] = true;
     $_SESSION['user_name'] = $_POST['user_name'];
-    $_SESSION['user_id'] = $result;
+    $_SESSION['user_id'] = $result['user_id'];
+    $_SESSION['money'] = $result['money'];
+    $result = get_item($result['user_id'], 1);
+    $error_message = $result["error"];
+  }
+  if($error_message === "success")
+  {
+    $_SESSION['item']['1'] = $result['count'];
     $error_message = "";
     header("Location: home.php") ;
     exit;
