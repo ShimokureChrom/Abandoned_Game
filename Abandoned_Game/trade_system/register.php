@@ -18,11 +18,11 @@ if (isset($_POST['login']))
     $_SESSION['user_name'] = $_POST['user_name'];
     $_SESSION['user_id'] = $result['user_id'];
     $_SESSION['money'] = $result['money'];
-    $error_message = insert_item($result['user_id'], 1, 0);
+    $error_message = insert_item($result['user_id'], 1, 5);
   }
   if($error_message === "success")
   {
-    $_SESSION['item']['1'] = $result['count'];
+    $_SESSION['item']['1'] = 0;
     $error_message = "";
     header("Location: home.php") ;
     exit;
